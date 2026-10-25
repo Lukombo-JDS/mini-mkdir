@@ -55,8 +55,7 @@ fn recursive_folders(folders: &[String]){
 
 /// core logic of the makedir command
 ///
-///Args: entries(Vec<String>) user entries for the usage of makedir
-///Return: unit 
+///entries user entries for the usage of makedir 
 ///
 fn logic(entries: Vec<String>){
 
