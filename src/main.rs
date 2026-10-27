@@ -12,8 +12,7 @@ use std::{
 
 /// Calling function to the two main core std directory creation
 ///
-/// Arguments: 
-///      path: path to the folder or the path of all folders.
+/// path: path to the folder or the path of all folders.
 ///      recursive: option of creating multiple folders
 /// 
 fn create_directory(path: &str, recursive: bool)->Result<()>{
@@ -32,8 +31,7 @@ fn entry()->Vec<String>{
 ///
 /// Create multiple folders in the same parent folder
 /// 
-/// Arguments:
-///         folders: all the folders to be created
+/// folders: all the folders to be created
 ///
 fn recursive_folders(folders: &[String])->Result<()>{
 
@@ -63,64 +61,56 @@ fn recursive_folders(folders: &[String])->Result<()>{
 ///
 ///entries user entries for the usage of makedir
 ///
-fn logic(entries: Vec<String>)->Result<()>{
+fn core(entries: Vec<String>)->Result<()>{
 
-    let mut recursive:bool = false;
+    if entries.len() == 2{
 
-    if entries.len() == 3 && entries[1] == "-p" {
-        
-        recursive = true;
-        let result = create_directory(&entries[2], recursive);
+        let result = create_directory(&entries[1], false);
         match result {
-            Ok(()) => {
-                println!("folder ready.");
-                Ok(())
-            },
-            Err(error) => if error.kind() == AlreadyExists {
-                eprintln!("folders exists");
+            Ok(()) => Ok(()),
+            Err(error) =>  if error.kind() == AlreadyExists {
+                eprintln!("folder already exist");
                 Err(error)
-            }else if error.kind() == NotFound {
-                eprintln!("parents folder not found.");
+            }else if error.kind() == PermissionDenied {
+                eprintln!("permission denied.");
                 Err(error)
             }else{
-                eprintln!("Error: {}", error);
                 Err(error)
             }
         }
-    }else if entries.len() == 2 {
-        
-      let result =  create_directory(&entries[1], recursive);
-      match result {
-          Ok(()) => {
-              println!("folder created");
-              Ok(())
-          },
-          Err(error) => if error.kind() == NotFound {
-              eprintln!("parents folder not found.");
-              Err(error)
-          }else if error.kind() == AlreadyExists {
-              eprintln!("folder aldready exist.");
-              Ok(())
-          }else{
-              eprintln!("Error: {}", error);
-              Err(error)
-          }
-      }
-    }else if entries.len() > 2 && entries[1] == "-p" {
-        
-        recursive_folders(&entries[2..])
-        
+    }else if entries.len() == 3 && entries[1] == "-p" {
+        let result = create_directory(&entries[2],true);
+        match result {
+            Ok(()) => Ok(()),
+            Err(error) => if error.kind() == NotFound{
+                eprintln!("one of the parent folders not found");
+                Err(error)
+            }else if error.kind() == AlreadyExists{
+                eprintln!("folder ready !");
+                Err(error)
+            }else{
+                Err(error)
+            }
+        }
+    }else if entries.len() > 3 && entries[1] == "-p" {
+        let result = recursive_folders(&entries[2..]);
+        match result {
+            Ok(()) => Ok(()),
+            Err(error) => Err(error),
+        }
     }else {
         eprintln!("Error usage");
-        eprintln!("Usage: makedir <folder_path>");
-        eprintln!("Usage: makedir [-option] <folders_path>");
+        eprintln!("Usage: makedir <folder>");
+        eprintln!("Usage: makedir -p <path>");
+        eprintln!("Usage: makedire -p <folder_1> <folder_2> ...");
+
         Ok(())
     }
 }
 
 fn main(){
 
-    match logic(entry()){
+    match core(entry()){
         Ok(()) => (),
         Err(error) => eprintln!("{}",error)
     }
