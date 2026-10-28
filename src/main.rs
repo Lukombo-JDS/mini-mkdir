@@ -19,6 +19,7 @@ fn create_all_files(files_path: &[String])->Result<()>{
     Ok(())
 }
 
+/// Select function to switch between creating multiple files or one file
 fn touch_command(recursive: bool, paths: &[String], path: &str)->Result<()>{
 
     if recursive {
