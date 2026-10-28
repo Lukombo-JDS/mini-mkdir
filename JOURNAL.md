@@ -1,0 +1,37 @@
+# JOURNAL LOGS
+
+I'm criting my journey learning the basic of Rust through this simple 
+project. Recreating the simple unix terminal command ```mkdir``` as a Rust binary.
+Without AI assitant on my IDE.
+
+
+## 28-10-2026 - State of the code 🚀
+
+I creating this journal after the main functionality is already implemeted.
+
+### What I learned 🧠
+
+- Creating function with basic borrowing **rules** and **ownership**
+- Handling exception with Result type with ```match```, ```eprintln!``` 
+- Using Vector on ```String``` and ```&str```
+- using the stander library to call specific methods
+
+### Issues - ⛓️‍💥
+
+I wanted to implement the command line ```cd```:
+I learned that in *Linux* or *macos* the terminal is a parent processus
+using `cd` in my code I'm using it in a child processus.
+After the execution of my code in the child processus `cd` do its job but change the directory in
+its own processus (the child one). When the the execution is finished, the child processus is closed too.
+
+I can't use a child processus to modify a parent processus: changing the directory 
+in the parent processus: it's impossible.
+
+The solution is to create an eval in the shell file (.bashrc or .zshrc), writing `cd` with the path into stdout,
+catching that call and call the corresponding script in the `eval` in order to execute `cd` with the right path.
+
+That's the trick using by `Zoxyde` for exemple.
+
+**What I'm about to do this session** - 💻
+
+- Refactor the code to implement ```touch``` command.
