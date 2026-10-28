@@ -45,9 +45,9 @@ Usage:
 ```
 
 - [x] Create the core function `fn create_file()`: creating files enter by the user.
-- [ ] Create a function that create as many files as arguments enter by the user.
-- [ ] Adding the flag in the core function.
+- [x] Create a function that create as many files as arguments enter by the user.
+- [x] Adding the flag in the core function.
 
 Validation:
-- [ ] `-t` flag ->  create the file call after the flag in the current directory.
-- [ ] `-pt` flag -> create all the files in the current directory.
+- [x] `-t` flag ->  create the file call after the flag in the current directory.
+- [x] `-pt` flag -> create all the files in the current directory.

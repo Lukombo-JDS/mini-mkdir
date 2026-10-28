@@ -221,9 +221,13 @@ fn core(entries: Vec<String>)->Result<()>{
         }
     }else {
         eprintln!("Error usage");
+        eprintln!();
         eprintln!("Usage: makedir <folder>");
         eprintln!("Usage: makedir -p <path>");
-        eprintln!("Usage: makedire -p <folder_1> <folder_2> ...");
+        eprintln!("Usage: makedir -p <folder_1> <folder_2> ...");
+        eprintln!();
+        eprintln!("Usage: makedir -t <path_file>");
+        eprintln!("Usage: makedir -tp <path_file_1> <path_file_2> ...");
 
         Ok(())
     }
