@@ -34,4 +34,20 @@ That's the trick using by `Zoxyde` for exemple.
 
 **What I'm about to do this session** - 💻
 
-- Refactor the code to implement ```touch``` command.
+Refactor the code to implement ```touch``` command:
+
+Usage: 
+```bash
+    makedir -t <file> 
+```
+```bash
+    makedir -pt <file_1> <file_2> ...
+```
+
+- [x] Create the core function `fn create_file()`: creating files enter by the user.
+- [ ] Create a function that create as many files as arguments enter by the user.
+- [ ] Adding the flag in the core function.
+
+Validation:
+- [ ] `-t` flag ->  create the file call after the flag in the current directory.
+- [ ] `-pt` flag -> create all the files in the current directory.
